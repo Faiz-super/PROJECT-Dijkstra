@@ -1,11 +1,13 @@
 let map;
 let directionsService;
 let directionsRenderer;
+let autocompleteStart;
+let autocompleteEnd;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -6.2, lng: 106.8 }, // Jakarta
-    zoom: 11,
+    center: { lat: -6.9, lng: 107.6 }, // pusat Bandung
+    zoom: 12,
     mapTypeControl: false,
     streetViewControl: false,
     fullscreenControl: false,
@@ -20,6 +22,28 @@ function initMap() {
       strokeWeight: 5,
     },
   });
+
+  initAutocomplete();
+}
+
+function initAutocomplete() {
+  const bandungBounds = new google.maps.LatLngBounds(
+    new google.maps.LatLng(-7.06, 107.43), // sudut kiri bawah Bandung
+    new google.maps.LatLng(-6.80, 107.75)  // sudut kanan atas Bandung
+  );
+
+  const options = {
+    bounds: bandungBounds,
+    strictBounds: true,
+    componentRestrictions: { country: "id" },
+    fields: ["formatted_address", "geometry", "name"],
+  };
+
+  const inputStart = document.getElementById("start");
+  const inputEnd = document.getElementById("end");
+
+  autocompleteStart = new google.maps.places.Autocomplete(inputStart, options);
+  autocompleteEnd = new google.maps.places.Autocomplete(inputEnd, options);
 }
 
 function showMessage(message, type = "info") {
@@ -43,10 +67,11 @@ function calculateRoute() {
 
   showMessage("🔍 Mencari rute...");
 
+  const selectedMode = document.getElementById("mode").value;
   const request = {
-    origin: origin,
-    destination: destination,
-    travelMode: google.maps.TravelMode.DRIVING,
+    origin,
+    destination,
+    travelMode: google.maps.TravelMode[selectedMode],
   };
 
   directionsService.route(request, function (result, status) {

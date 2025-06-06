@@ -14,11 +14,20 @@
   </div>
   <div id="map"></div>
 
+  <!--Mode Pillihan-->
+  <select id="mode">
+  <option value="DRIVING">Kendaraan</option>
+  <option value="WALKING">Jalan Kaki</option>
+  <option value="BICYCLING">Sepeda</option>
+  <option value="TRANSIT">Transportasi Umum</option>
+</select>
+
   <!-- Google Maps API -->
   <script src="js/script.js"></script>
-  <script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-  </script>
+  <script
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChoHyiGFZOb0RKr3vqqxQSvHxOatiWh0w&libraries=places&callback=initMap"
+  async defer></script>
+
 
 </body>
 </html>
