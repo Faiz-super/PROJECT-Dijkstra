@@ -4,8 +4,11 @@ let directionsRenderer;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: -6.2, lng: 106.8 }, // Jakarta (misalnya)
+    center: { lat: -6.2, lng: 106.8 }, // Jakarta
     zoom: 11,
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: false,
   });
 
   directionsService = new google.maps.DirectionsService();
@@ -19,14 +22,26 @@ function initMap() {
   });
 }
 
+function showMessage(message, type = "info") {
+  const output = document.getElementById("output");
+  output.innerHTML = `<span style="color:${type === 'error' ? 'red' : '#1976d2'}">${message}</span>`;
+}
+
+function validateInput(origin, destination) {
+  if (!origin.trim() || !destination.trim()) {
+    showMessage("📌 Masukkan lokasi awal dan tujuan.", "error");
+    return false;
+  }
+  return true;
+}
+
 function calculateRoute() {
   const origin = document.getElementById("start").value;
   const destination = document.getElementById("end").value;
 
-  if (!origin || !destination) {
-    alert("Masukkan lokasi awal dan tujuan.");
-    return;
-  }
+  if (!validateInput(origin, destination)) return;
+
+  showMessage("🔍 Mencari rute...");
 
   const request = {
     origin: origin,
@@ -38,16 +53,14 @@ function calculateRoute() {
     if (status === "OK") {
       directionsRenderer.setDirections(result);
 
-      // Menampilkan jarak dan durasi
-      const output = document.getElementById("output");
       const route = result.routes[0].legs[0];
-      output.innerHTML = `
-        <strong>Rute:</strong> ${route.start_address} ke ${route.end_address}<br>
-        <strong>Jarak:</strong> ${route.distance.text} <br>
-        <strong>Waktu Tempuh:</strong> ${route.duration.text}
-      `;
+      showMessage(`
+        <strong>📍 Rute:</strong> ${route.start_address} ke ${route.end_address}<br>
+        <strong>📏 Jarak:</strong> ${route.distance.text}<br>
+        <strong>🕐 Waktu Tempuh:</strong> ${route.duration.text}
+      `);
     } else {
-      alert("Rute tidak ditemukan. Pastikan lokasi valid.");
+      showMessage("⚠️ Rute tidak ditemukan. Coba masukkan lokasi yang lebih spesifik.", "error");
     }
   });
 }
