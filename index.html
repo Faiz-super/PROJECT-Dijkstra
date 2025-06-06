@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visualisasi Dijkstra</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">🔍 Visualisasi Rute Terpendek (Dijkstra)</h1>
+
+    <div id="mynetwork" class="network-card"></div>
+
+    <div class="card controls">
+      <h3>🔧 Cari Rute Manual</h3>
+      <div class="form-group">
+        <input type="text" id="startNode" placeholder="Node awal (contoh: A)">
+        <input type="text" id="endNode" placeholder="Node tujuan (contoh: F)">
+      </div>
+      <div class="button-group">
+        <button onclick="runManualDijkstra()">Cari Jalur</button>
+        <button onclick="resetGraph()">Reset</button>
+      </div>
+      <div id="info" class="result-box"></div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
