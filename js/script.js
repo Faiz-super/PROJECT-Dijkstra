@@ -1,4 +1,5 @@
 let map;
+let trafficLayer;
 let directionsService;
 let directionsRenderer;
 let autocompleteStart;
@@ -12,6 +13,10 @@ function initMap() {
     streetViewControl: false,
     fullscreenControl: false,
   });
+
+   // Layer traffic
+  trafficLayer = new google.maps.TrafficLayer();
+  trafficLayer.setMap(map);
 
   directionsService = new google.maps.DirectionsService();
   directionsRenderer = new google.maps.DirectionsRenderer({
