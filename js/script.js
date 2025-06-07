@@ -36,7 +36,7 @@ function initAutocomplete() {
     bounds: bandungBounds,
     strictBounds: true,
     componentRestrictions: { country: "id" },
-    fields: ["formatted_address", "geometry", "name"],
+    fields: ["place_id", "geometry", "name"], // ← pastikan ini untuk hasil lebih presisi
   };
 
   const inputStart = document.getElementById("start");
