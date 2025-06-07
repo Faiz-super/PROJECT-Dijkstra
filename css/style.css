@@ -15,7 +15,7 @@ body {
 h2 {
   text-align: center;
   padding: 1.5rem 0;
-  background-color: #1976d2;
+  background-color: #1c8016;
   color: white;
   margin: 0;
   font-size: 1.8rem;
@@ -68,7 +68,7 @@ h2 {
 }
 
 #controls button:hover {
-  background-color: #1565c0;
+  background-color: #11943f;
   transform: translateY(-2px);
 }
 
